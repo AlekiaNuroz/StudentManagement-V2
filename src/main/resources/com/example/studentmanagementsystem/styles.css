@@ -1,0 +1,104 @@
+.sidebar {
+    -fx-width: 200px;
+    -fx-margin-top: 20px;
+    -fx-font-family: Verdana, Geneva, Tahoma, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: linear-gradient(to bottom right, #005a87, #0088cc);
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+.sidebar .label {
+    -fx-font-family: "Tahoma";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffb81c;
+}
+
+.sidebar .button {
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-color: #ffb81c;
+    -fx-border-radius: 10px;
+    -fx-font-family: "Tahoma";
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffb81c;
+}
+
+.sidebar .button:hover {
+    -fx-background-color: #ffb81c;
+    -fx-background-radius: 10px;
+    -fx-border-color: #ffb81c;
+    -fx-border-radius: 10px;
+    -fx-text-fill: #005a87;
+}
+
+.sidebar .button .font-icon {
+    -fx-fill: #ffb81c;
+}
+
+.sidebar .button:hover .font-icon {
+    -fx-fill: #005a87;
+}
+
+.active-students-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #005a87;
+}
+
+.student-list-view {
+    -fx-min-width: 600px;  /* Minimum width setting */
+    -fx-pref-width: 100%;   /* Set preferred width to stretch to 100% of the container */
+    -fx-max-width: Infinity; /* Maximum width to ensure it can grow */
+    -fx-background-color: #f5f5f5;      /* Background color of the ListView */
+    -fx-border-color: #cccccc;          /* Border color */
+    -fx-border-width: 0px;                 /* Width of the border */
+    -fx-font-size: 16px;                 /* Font size for items */
+}
+
+.student-list-view .list-cell {
+    -fx-padding: 10;                     /* Padding for each item */
+    -fx-background-color: #ffffff;       /* Default background color for each item */
+    -fx-text-fill: #005a87;              /* Text color for items */
+}
+
+/* Hover effect */
+.student-list-view .list-cell:hover {
+    -fx-background-color: #e2f1ff;       /* Change background on hover */
+}
+
+/* Selected item style */
+.student-list-view .list-cell:selected {
+    -fx-background-color: #66b3ff;       /* Background color for selected item */
+    -fx-text-fill: white;                 /* Text color for the selected item */
+}
+
+.vbox {
+    -fx-spacing: 10px;
+}
+
+.edit-textbox {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-border-color: #005a87;      /* Border color */
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;            /* Border width */
+    -fx-padding: 5px;                 /* Padding inside the TextField */
+    -fx-font-family: Tahoma;         /* Font family */
+    -fx-font-size: 14px;            /* Font size */
+}
+
+HBox .button {
+    -fx-background-color: #0088cc;
+    -fx-text-fill: #ffb81c;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-family: Tahoma;
+    -fx-font-size: 16px;
+}
+
+HBox .button:hover {
+    -fx-background-color: #33a3e0;
+    -fx-text-fill: #ffd566;
+    -fx-cursor: hand;
+}
