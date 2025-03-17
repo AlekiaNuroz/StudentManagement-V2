@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 import java.util.List;
 
@@ -27,9 +29,17 @@ public class StudentsController {
     @FXML
     public TextField txtStudentName;
 
+    @FXML
+    public Label labelStudentId;
+
+    @FXML
+    public Label labelStudentName;
+
     DatabaseManager db = new DatabaseManager();
 
     public void initialize() {
+        HBox.setHgrow(txtStudentId, Priority.ALWAYS);
+        HBox.setHgrow(txtStudentName, Priority.ALWAYS);
         List<Student> students = db.getStudents(false);
 
         listViewStudents.getItems().clear();

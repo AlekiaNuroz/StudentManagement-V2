@@ -62,10 +62,10 @@ public class StudentManagementSystem extends Application {
         Button editCourseButton = createButtonWithIcon("Edit Courses", "bi-calendar2-check");
 
         // Set action for Students button
-        viewStudentButton.setOnAction(e -> ListStudents());
+        viewStudentButton.setOnAction(e -> manageStudents());
 
         // Set action for Courses button
-        viewCourseButton.setOnAction(e -> showCoursesManagement());
+        viewCourseButton.setOnAction(e -> manageCourses());
 
         // Add buttons to the sidebar
         sidebar.getChildren().addAll(manageStudentTitle, viewStudentButton, addStudentButton, manageCourseTitle,
@@ -82,7 +82,7 @@ public class StudentManagementSystem extends Application {
         return button;
     }
 
-    private void ListStudents() {
+    private void manageStudents() {
         try {
             // Load the FXML file and create the scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("manageStudents.fxml"));
@@ -92,9 +92,14 @@ public class StudentManagementSystem extends Application {
         }
     }
 
-    private void showCoursesManagement() {
-        dashboardLabel.setText("Course Management:\nHere you can add, edit, or delete courses.");
-        // Additional functionality to manage courses can be added here
+    private void manageCourses() {
+        try {
+            // Load the FXML file and create the scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("manageCourses.fxml"));
+            mainLayout.setCenter(loader.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
