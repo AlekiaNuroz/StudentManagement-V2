@@ -29,11 +29,7 @@ public class StudentManagementSystem extends Application {
         sidebar.setMinWidth(250);
         mainLayout.setLeft(sidebar);
 
-        // Create and configure the dashboard area
-        dashboardLabel = new Label("Welcome to the Student Management System\nSelect an option from the sidebar.");
-        mainLayout.setCenter(dashboardLabel);
-
-        // Set up the scene and stage
+                // Set up the scene and stage
         Scene scene = new Scene(mainLayout, 1280, 720);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
         primaryStage.setTitle("Student Management System");
@@ -56,20 +52,18 @@ public class StudentManagementSystem extends Application {
         Button addStudentButton = createButtonWithIcon("Add Student", "bi-person-plus");
 
         Label manageCourseTitle = new Label("Manage Courses");
-        Button viewCourseButton = createButtonWithIcon("View Courses", "bi-calendar2-range");
+        Button viewCourseButton = createButtonWithIcon("View/Edit Courses", "bi-calendar2-range");
         Button addCourseButton = createButtonWithIcon("Add Courses", "bi-calendar2-plus");
-        Button deleteCourseButton = createButtonWithIcon("Delete Courses", "bi-calendar2-minus");
-        Button editCourseButton = createButtonWithIcon("Edit Courses", "bi-calendar2-check");
 
         // Set action for Students button
-        viewStudentButton.setOnAction(e -> ListStudents());
+        viewStudentButton.setOnAction(e -> manageStudents());
 
         // Set action for Courses button
-        viewCourseButton.setOnAction(e -> showCoursesManagement());
+        viewCourseButton.setOnAction(e -> manageCourses());
 
         // Add buttons to the sidebar
         sidebar.getChildren().addAll(manageStudentTitle, viewStudentButton, addStudentButton, manageCourseTitle,
-                viewCourseButton, addCourseButton, deleteCourseButton, editCourseButton);
+                viewCourseButton, addCourseButton);
         return sidebar;
     }
 
@@ -82,7 +76,7 @@ public class StudentManagementSystem extends Application {
         return button;
     }
 
-    private void ListStudents() {
+    private void manageStudents() {
         try {
             // Load the FXML file and create the scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("manageStudents.fxml"));
@@ -92,9 +86,14 @@ public class StudentManagementSystem extends Application {
         }
     }
 
-    private void showCoursesManagement() {
-        dashboardLabel.setText("Course Management:\nHere you can add, edit, or delete courses.");
-        // Additional functionality to manage courses can be added here
+    private void manageCourses() {
+        try {
+            // Load the FXML file and create the scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("manageCourses.fxml"));
+            mainLayout.setCenter(loader.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

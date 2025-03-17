@@ -163,4 +163,9 @@ public class Course {
     public int hashCode() {
         return Objects.hash(courseCode);
     }
+
+    @Override
+    public String toString() {
+        return getId() + ": " + getName() + " - Maximum Capacity: " + getMaxCapacity();
+    }
 }
