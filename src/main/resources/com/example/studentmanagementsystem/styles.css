@@ -88,6 +88,10 @@
     -fx-font-size: 14px;            /* Font size */
 }
 
+.hbox {
+    -fx-spacing: 10px;
+}
+
 HBox .button {
     -fx-background-color: #0088cc;
     -fx-text-fill: #ffb81c;
@@ -100,5 +104,20 @@ HBox .button {
 HBox .button:hover {
     -fx-background-color: #33a3e0;
     -fx-text-fill: #ffd566;
+    -fx-cursor: hand;
+}
+
+HBox .button-delete {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-family: Tahoma;
+    -fx-font-size: 16px;
+}
+
+HBox .button-delete:hover {
+    -fx-background-color: #ff6666;
+    -fx-text-fill: white;
     -fx-cursor: hand;
 }

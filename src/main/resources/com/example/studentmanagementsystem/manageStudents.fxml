@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.HBox?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.ListStudentsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.StudentsController">
    <VBox styleClass="vbox">
       <Label fx:id="labelActiveStudents" styleClass="active-students-label" text="Active Students"/>
       <ListView fx:id="listViewStudents" styleClass="student-list-view"/>
@@ -16,8 +16,9 @@
       <Label fx:id="labelEditStudent" styleClass="active-students-label" text="Edit Student"/>
       <TextField fx:id="txtStudentId" disable="true" styleClass="edit-textbox" />
       <TextField fx:id="txtStudentName" styleClass="edit-textbox" />
-      <HBox alignment="CENTER">
-         <Button mnemonicParsing="false" text="Confirm Changes" onAction="#handleEditStudentClick"/>
+      <HBox alignment="CENTER" styleClass="hbox">
+         <Button mnemonicParsing="false" text="Confirm Changes" styleClass="button" onAction="#handleEditStudentClick"/>
+         <Button mnemonicParsing="false" text="Delete Student" styleClass="button-delete" onAction="#handleDeleteStudentClick"/>
       </HBox>
    </VBox>
 

@@ -8,9 +8,10 @@ import javafx.scene.control.TextField;
 
 import java.util.List;
 
+import static com.example.studentmanagementsystem.IOHelper.showConfirmationDialog;
 import static com.example.studentmanagementsystem.IOHelper.showMessageBox;
 
-public class ListStudentsController {
+public class StudentsController {
     @FXML
     public Label labelEditStudent;
 
@@ -69,6 +70,28 @@ public class ListStudentsController {
             }
         } else {
             showMessageBox("No Student Selected", "Please select a student and provide a new name", Alert.AlertType.ERROR);
+        }
+    }
+
+    public void handleDeleteStudentClick() {
+        Student selectedStudent = listViewStudents.getSelectionModel().getSelectedItem();
+
+        if (selectedStudent != null) {
+            // Show the confirmation dialog
+            boolean confirmed = showConfirmationDialog("Confirm Deletion",
+                    "Are you sure you want to delete the student: " + selectedStudent.getName() + "?");
+
+            if (confirmed) {
+                // Proceed with deletion logic (e.g., remove from database, remove from ListView)
+                db.deleteRestoreStudent(selectedStudent, true);
+                listViewStudents.getItems().remove(selectedStudent);
+                showMessageBox("Deletion Successful", "Student deleted successfully!", Alert.AlertType.INFORMATION);
+            } else {
+                // User decided not to delete
+                showMessageBox("Deletion Canceled", "Student deletion was canceled.", Alert.AlertType.INFORMATION);
+            }
+        } else {
+            showMessageBox("No Student Selected", "Please select a student to delete.", Alert.AlertType.WARNING);
         }
     }
 }

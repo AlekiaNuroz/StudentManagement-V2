@@ -52,10 +52,8 @@ public class StudentManagementSystem extends Application {
 
         // Create buttons for managing Students and Courses
         Label manageStudentTitle = new Label("Manage Students");
-        Button viewStudentButton = createButtonWithIcon("View Students", "bi-person-lines-fill");
-        Button addStudentButton = createButtonWithIcon("Add Students", "bi-person-plus");
-        Button deleteStudentButton = createButtonWithIcon("Delete Students", "bi-person-dash");
-        Button editStudentButton = createButtonWithIcon("Edit Students", "bi-person-check");
+        Button viewStudentButton = createButtonWithIcon("View/Edit Students", "bi-person-lines-fill");
+        Button addStudentButton = createButtonWithIcon("Add Student", "bi-person-plus");
 
         Label manageCourseTitle = new Label("Manage Courses");
         Button viewCourseButton = createButtonWithIcon("View Courses", "bi-calendar2-range");
@@ -70,9 +68,8 @@ public class StudentManagementSystem extends Application {
         viewCourseButton.setOnAction(e -> showCoursesManagement());
 
         // Add buttons to the sidebar
-        sidebar.getChildren().addAll(manageStudentTitle, viewStudentButton, addStudentButton, deleteStudentButton,
-                editStudentButton, manageCourseTitle, viewCourseButton, addCourseButton, deleteCourseButton,
-                editCourseButton);
+        sidebar.getChildren().addAll(manageStudentTitle, viewStudentButton, addStudentButton, manageCourseTitle,
+                viewCourseButton, addCourseButton, deleteCourseButton, editCourseButton);
         return sidebar;
     }
 
@@ -88,7 +85,7 @@ public class StudentManagementSystem extends Application {
     private void ListStudents() {
         try {
             // Load the FXML file and create the scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("list_students.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("manageStudents.fxml"));
             mainLayout.setCenter(loader.load());
         } catch (Exception e) {
             e.printStackTrace();
