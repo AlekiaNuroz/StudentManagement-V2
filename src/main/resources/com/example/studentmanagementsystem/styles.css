@@ -52,8 +52,8 @@
     -fx-pref-width: 100%;   /* Set preferred width to stretch to 100% of the container */
     -fx-max-width: Infinity; /* Maximum width to ensure it can grow */
     -fx-background-color: #f5f5f5;      /* Background color of the ListView */
-    -fx-border-color: #cccccc;          /* Border color */
-    -fx-border-width: 0px;                 /* Width of the border */
+    -fx-border-width: 1px;
+    -fx-border-color: #005a87;
     -fx-font-size: 16px;                 /* Font size for items */
 }
 
@@ -78,18 +78,19 @@
     -fx-spacing: 10px;
 }
 
-.edit-textbox {
-    -fx-background-color: #ffffff; /* Background color */
-    -fx-border-color: #005a87;      /* Border color */
-    -fx-border-radius: 5px;
-    -fx-border-width: 1px;            /* Border width */
-    -fx-padding: 5px;                 /* Padding inside the TextField */
-    -fx-font-family: Tahoma;         /* Font family */
-    -fx-font-size: 14px;            /* Font size */
+.edit-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #005a87;
 }
 
-.hbox {
-    -fx-spacing: 10px;
+.edit-textbox {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #005a87;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+    -fx-font-family: Tahoma;
+    -fx-font-size: 14px;
 }
 
 HBox .button {
@@ -120,4 +121,81 @@ HBox .button-delete:hover {
     -fx-background-color: #ff6666;
     -fx-text-fill: white;
     -fx-cursor: hand;
+}
+
+.label-warning {
+    -fx-text-fill: #ff0000;
+}
+
+.edit-combobox {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #005a87;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+    -fx-font-family: Tahoma;
+    -fx-font-size: 14px;
+    -fx-control-inner-background: #ffffff;
+    -fx-mark-color: #005a87;
+}
+
+.edit-combobox .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #005a87;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.edit-combobox .list-view .list-cell:filled:hover {
+    -fx-background-color: #66b3ff;
+}
+
+.edit-combobox .list-view .list-cell:filled:selected {
+    -fx-background-color: #c0c0c0;
+}
+
+.enroll-list-view {
+    -fx-min-width: 350px;  /* Minimum width setting */
+    -fx-pref-width: 100%;   /* Set preferred width to stretch to 100% of the container */
+    -fx-max-width: Infinity; /* Maximum width to ensure it can grow */
+    -fx-background-color: #f5f5f5;      /* Background color of the ListView */
+    -fx-border-width: 1px;
+    -fx-border-color: #005a87;
+    -fx-font-size: 16px;                 /* Font size for items */
+}
+
+.enroll-list-view .list-cell {
+    -fx-padding: 10;                     /* Padding for each item */
+    -fx-background-color: #ffffff;       /* Default background color for each item */
+    -fx-text-fill: #005a87;              /* Text color for items */
+}
+
+/* Hover effect */
+.enroll-list-view .list-cell:hover {
+    -fx-background-color: #e2f1ff;       /* Change background on hover */
+}
+
+/* Selected item style */
+.enroll-list-view .list-cell:selected {
+    -fx-background-color: #66b3ff;       /* Background color for selected item */
+    -fx-text-fill: white;                 /* Text color for the selected item */
+}
+
+.dashboard-card {
+    -fx-border-width: 1px;
+    -fx-border-color: #005a87;
+    -fx-border-radius: 25px;
+}
+
+.dashboard-value {
+    -fx-font-family: Tahoma;
+    -fx-font-size: 24px;
+    -fx-text-fill: #005a87;
+    -fx-font-weight: bold;
+}
+
+.dashboard-title {
+    -fx-font-family: Tahoma;
+    -fx-font-size: 20px;
+    -fx-text-fill: #005a87;
 }

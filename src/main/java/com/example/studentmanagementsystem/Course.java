@@ -166,6 +166,6 @@ public class Course {
 
     @Override
     public String toString() {
-        return getId() + ": " + getName() + " - Maximum Capacity: " + getMaxCapacity();
+        return getId().toUpperCase() + ": " + getName() + " - Maximum Capacity: " + getMaxCapacity();
     }
 }

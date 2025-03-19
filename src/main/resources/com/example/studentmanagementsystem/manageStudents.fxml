@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.StudentsController">
    <VBox styleClass="vbox">
       <Label fx:id="labelActiveStudents" styleClass="active-students-label" text="Active Students"/>
@@ -15,17 +9,26 @@
    </VBox>
    <VBox styleClass="vbox">
       <Label fx:id="labelEditStudent" styleClass="active-students-label" text="Edit Student"/>
-      <HBox alignment="BASELINE_LEFT">
-         <Label fx:id="labelStudentId" text="Student Id" />
-         <TextField fx:id="txtStudentId" disable="true" styleClass="edit-textbox" />
-      </HBox>
-      <HBox alignment="BASELINE_LEFT">
-         <Label fx:id="labelStudentName" text="Student Name" />
-         <TextField fx:id="txtStudentName" styleClass="edit-textbox" />
-      </HBox>
-      <HBox alignment="CENTER" styleClass="hbox">
-         <Button mnemonicParsing="false" text="Confirm Changes" styleClass="button" onAction="#handleEditStudentClick"/>
+      <GridPane alignment="BASELINE_LEFT" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+         <Label styleClass="edit-label" text="Student Id" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+         <TextField fx:id="txtStudentId" disable="true" styleClass="edit-textbox" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS" />
+         <Label styleClass="edit-label" text="Student Name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+         <TextField fx:id="txtStudentName" styleClass="edit-textbox" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" />
+      </GridPane>
+      <HBox alignment="CENTER" spacing="10">
+         <Button mnemonicParsing="false" text="Add Student" styleClass="button" onAction="#handleAddStudentButtonClick"/>
+         <Button mnemonicParsing="false" text="View Student Details" styleClass="button" onAction="#showStudentDetailsClick"/>
+         <Button mnemonicParsing="false" text="Edit Student" styleClass="button" onAction="#handleEditStudentClick"/>
          <Button mnemonicParsing="false" text="Delete Student" styleClass="button-delete" onAction="#handleDeleteStudentClick"/>
+         <Button mnemonicParsing="false" text="Restore Deleted Course" styleClass="button-delete" onAction="#handleRestoreDeletedStudentButtonClick"/>
          <Region HBox.hgrow="ALWAYS" />
       </HBox>
    </VBox>

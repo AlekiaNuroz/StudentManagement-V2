@@ -5,7 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unused")
 public class DatabaseManager implements AutoCloseable {
@@ -273,6 +275,36 @@ public class DatabaseManager implements AutoCloseable {
         }
     }
 
+    public static Map<Student, Double> getStudentsEnrolledInCourse(Course course) {
+        String sql = "SELECT s.id, s.name, e.grade FROM students s " +
+                "JOIN enrollments e ON s.id = e.student_id " +
+                "WHERE e.course_code = ?";
+
+        Map<Student, Double> enrolledStudents = new HashMap<>();
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, course.getId().toLowerCase());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String studentId = rs.getString("id");
+                    String studentName = rs.getString("name");
+                    Double grade = rs.getDouble("grade");
+                    if (rs.wasNull()) {
+                        grade = null;
+                    }
+                    Student student = new Student(studentId, studentName);
+                    enrolledStudents.put(student, grade);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Error getting students enrolled in course: {}", course.getId(), e);
+        }
+        return enrolledStudents;
+    }
+
     public boolean insertStudent(Student student) {
         String insertSQL = "INSERT INTO students (id, name) VALUES (?, ?)";
 
@@ -334,6 +366,39 @@ public class DatabaseManager implements AutoCloseable {
         return false;
     }
 
+    public boolean unenrollStudentFromCourse(String studentId, String courseCode) {
+        String deleteEnrollment = "DELETE FROM enrollments WHERE student_id = ? AND course_code = ?";
+        String updateCapacity = "UPDATE courses SET enrolled = enrolled - 1 WHERE course_code = ?";
+
+        try (Connection conn = getConnection()) {
+            if (conn == null) {
+                logger.error("Database connection unavailable. Unenrollment cannot be processed.");
+                return false;
+            }
+            conn.setAutoCommit(false); // Start transaction
+
+            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteEnrollment)) {
+                deleteStmt.setString(1, studentId.toLowerCase());
+                deleteStmt.setString(2, courseCode.toLowerCase());
+                int deletedRows = deleteStmt.executeUpdate();
+                if (deletedRows == 0) {
+                    conn.rollback();
+                    return false; // Unenrollment failed, enrollment record not found
+                }
+            }
+
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateCapacity)) {
+                updateStmt.setString(1, courseCode.toLowerCase());
+                updateStmt.executeUpdate();
+            }
+
+            conn.commit(); // Commit transaction if both queries succeed
+            return true;
+        } catch (SQLException e) {
+            logger.error("Error unenrolling student with ID '{}'", studentId, e);
+        }
+        return false;
+    }
 
     private void populateEnrollments(Student student) {
         String sql = "SELECT course_code, grade FROM enrollments WHERE student_id = ?";
@@ -413,30 +478,8 @@ public class DatabaseManager implements AutoCloseable {
         }
     }
 
-    public boolean updateCourseName(String courseCode, String newName) {
-        String updateSql = "UPDATE courses SET name = ? WHERE course_code = ?";
-
-        try (Connection conn = getConnection()) {
-            if (conn == null) {
-                logger.error("Database connection unavailable. Course code cannot be updated.");
-                return false;
-            }
-            try (PreparedStatement stmt = conn.prepareStatement(updateSql)) {
-
-                stmt.setString(1, newName.trim());
-                stmt.setString(2, courseCode);
-
-                int rowsAffected = stmt.executeUpdate();
-                return rowsAffected > 0;
-            }
-        } catch (SQLException e) {
-            logger.error("Error updating course with ID '{}'", courseCode, e);
-            return false;
-        }
-    }
-
-    public boolean updateCourseMaxCapacity(String courseId, int maxCapacity) {
-        String updateSql = "UPDATE courses SET max_capacity = ? WHERE course_code = ?";
+    public boolean updateCourse(Course course) {
+        String updateSql = "UPDATE courses SET name = ?, max_capacity = ? WHERE course_code = ?";
 
         try (Connection conn = getConnection()) {
             if (conn == null) {
@@ -445,14 +488,15 @@ public class DatabaseManager implements AutoCloseable {
             }
             try (PreparedStatement stmt = conn.prepareStatement(updateSql)) {
 
-                stmt.setInt(1, maxCapacity);
-                stmt.setString(2, courseId);
+                stmt.setString(1, course.getName());
+                stmt.setInt(2, course.getMaxCapacity());
+                stmt.setString(3, course.getId());
 
                 int rowsAffected = stmt.executeUpdate();
                 return rowsAffected > 0;
             }
         } catch (SQLException e) {
-            logger.error("Error updating course with ID '{}'", courseId, e);
+            logger.error("Error updating course with ID '{}'", course.getId(), e);
             return false;
         }
     }

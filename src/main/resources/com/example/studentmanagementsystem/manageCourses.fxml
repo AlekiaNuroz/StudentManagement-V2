@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.CoursesController">
    <VBox styleClass="vbox">
       <Label fx:id="labelActiveCourses" styleClass="active-students-label" text="Active Courses"/>
@@ -15,21 +9,29 @@
    </VBox>
    <VBox styleClass="vbox">
       <Label fx:id="labelEditCourse" styleClass="active-students-label" text="Edit Course"/>
-      <HBox alignment="BASELINE_LEFT">
-         <Label fx:id="labelCourseId" text="Course ID"/>
-         <TextField fx:id="txtCourseId" disable="true" styleClass="edit-textbox" />
-      </HBox>
-      <HBox alignment="BASELINE_LEFT">
-         <Label fx:id="labelCourseName" text="Course Name"/>
-         <TextField fx:id="txtCourseName" styleClass="edit-textbox" />
-      </HBox>
-      <HBox alignment="BASELINE_LEFT">
-         <Label fx:id="labelMaxCapacity" text="Maximum Capacity"/>
-         <TextField fx:id="txtCourseMaxCapacity" styleClass="edit-textbox" />
-      </HBox>
-      <HBox alignment="CENTER" styleClass="hbox">
-         <Button mnemonicParsing="false" text="Confirm Changes" styleClass="button" onAction="#handleEditCourseClick"/>
+      <GridPane alignment="BASELINE_LEFT" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+         <Label styleClass="edit-label" text="Course ID" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+         <TextField fx:id="txtCourseId" disable="true" styleClass="edit-textbox" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS" />
+         <Label styleClass="edit-label" text="Course Name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+         <TextField fx:id="txtCourseName" styleClass="edit-textbox" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" />
+         <Label styleClass="edit-label" text="Maximum Capacity" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+         <TextField fx:id="txtCourseMaxCapacity" styleClass="edit-textbox" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS" />
+      </GridPane>
+      <HBox alignment="CENTER" styleClass="hbox" spacing="10">
+         <Button mnemonicParsing="false" text="Add Course" styleClass="button" onAction="#handleAddCourseButtonClick"/>
+         <Button mnemonicParsing="false" text="View Course Details" styleClass="button" onAction="#showCourseDetailsClick"/>
+         <Button mnemonicParsing="false" text="Edit Course" styleClass="button" onAction="#handleEditCourseClick"/>
          <Button mnemonicParsing="false" text="Delete Course" styleClass="button-delete" onAction="#handleDeleteCourseClick"/>
+         <Button mnemonicParsing="false" text="Restore Deleted Course" styleClass="button-delete" onAction="#handleRestoreDeletedCourseButtonClick"/>
          <Region HBox.hgrow="ALWAYS" />
       </HBox>
    </VBox>
