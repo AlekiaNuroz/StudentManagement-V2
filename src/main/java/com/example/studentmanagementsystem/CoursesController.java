@@ -12,10 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static com.example.studentmanagementsystem.IOHelper.showConfirmationDialog;
 import static com.example.studentmanagementsystem.IOHelper.showMessageBox;
@@ -172,15 +169,12 @@ public class CoursesController {
         TableColumn<Map.Entry<Student, Double>, Double> colGrade = new TableColumn<>("Grade");
         colGrade.setCellValueFactory(entry -> {
             Double grade = entry.getValue().getValue();
-            if (grade == null) {
-                return new SimpleDoubleProperty(0.0).asObject(); // Or return null, if you prefer
-            } else {
-                return new SimpleDoubleProperty(grade).asObject();
-            }
+            // Or return null, if you prefer
+            return new SimpleDoubleProperty(Objects.requireNonNullElse(grade, 0.0)).asObject();
         });
 
         // Set the columns to the TableView
-        tableViewStudents.getColumns().addAll(colStudentId, colStudentName, colGrade);
+        tableViewStudents.getColumns().addAll(List.of(colStudentId, colStudentName, colGrade));
 
         // Populate the TableView with the students enrolled in the course
         ObservableList<Map.Entry<Student, Double>> studentData = FXCollections.observableArrayList(getStudentsEnrolledInCourse(course).entrySet());
@@ -291,7 +285,7 @@ public class CoursesController {
 
         dialog.getDialogPane().lookupButton(restoreButtonType).setDisable(true); // Disable initially
 
-        courseListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
+        courseListView.getSelectionModel().selectedItemProperty().addListener((_, _, newVal) ->
                 dialog.getDialogPane().lookupButton(restoreButtonType).setDisable(newVal == null)
         );
 

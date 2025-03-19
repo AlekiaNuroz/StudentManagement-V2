@@ -4,10 +4,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class DatabaseManager implements AutoCloseable {
@@ -273,6 +270,25 @@ public class DatabaseManager implements AutoCloseable {
             logger.error("Error getting student data from resultSet: {}", resultSet, e);
             return null;
         }
+    }
+
+    public int countUniqueStudentsEnrolled() {
+        int count = 0;
+        String sql = "SELECT COUNT(DISTINCT student_id) FROM enrollments;"; // Assuming 'enrollments' table
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = Objects.requireNonNull(connection).prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error counting unique students: " + e.getMessage());
+        }
+
+        return count;
     }
 
     public static Map<Student, Double> getStudentsEnrolledInCourse(Course course) {

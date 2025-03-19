@@ -56,6 +56,8 @@ public class StudentManagementSystem extends Application {
 
 
         // Create buttons for managing Students and Courses
+        Button homeButton = createButtonWithIcon("Home", "bi-house-fill");
+
         Label manageStudentTitle = new Label("Students");
         Button viewStudentButton = createButtonWithIcon("Manage Students", "bi-person-lines-fill");
         Button assignGradeButton = createButtonWithIcon("Assign Grade", "bi-check");
@@ -63,6 +65,8 @@ public class StudentManagementSystem extends Application {
         Label manageCourseTitle = new Label("Courses");
         Button viewCourseButton = createButtonWithIcon("Manage Courses", "bi-calendar2-range");
         Button enrollCourseButton = createButtonWithIcon("Enroll Courses", "bi-calendar-check");
+
+        homeButton.setOnAction(event -> showDashboard());
 
         // Set action for viewing/editing students button
         viewStudentButton.setOnAction(e -> manageStudents());
@@ -75,9 +79,19 @@ public class StudentManagementSystem extends Application {
         enrollCourseButton.setOnAction(e -> enrollCourses());
 
         // Add buttons to the sidebar
-        sidebar.getChildren().addAll(manageStudentTitle, viewStudentButton, assignGradeButton, manageCourseTitle,
+        sidebar.getChildren().addAll(homeButton, manageStudentTitle, viewStudentButton, assignGradeButton, manageCourseTitle,
                 viewCourseButton, enrollCourseButton);
         return sidebar;
+    }
+
+    private void showDashboard() {
+        try {
+            // Load the FXML file and create the scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+            mainLayout.setCenter(loader.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void gradeStudent() {

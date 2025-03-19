@@ -159,7 +159,7 @@ public class StudentsController {
 
         dialog.getDialogPane().lookupButton(restoreButtonType).setDisable(true); // Disable initially
 
-        studentListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
+        studentListView.getSelectionModel().selectedItemProperty().addListener((_, _, newVal) ->
                 dialog.getDialogPane().lookupButton(restoreButtonType).setDisable(newVal == null)
         );
 
@@ -204,10 +204,17 @@ public class StudentsController {
         colCourseName.setMinWidth(300);
 
         TableColumn<Map.Entry<Course, Double>, Double> colGrade = new TableColumn<>("Grade");
-        colGrade.setCellValueFactory(entry -> new SimpleDoubleProperty(entry.getValue().getValue()).asObject());
+        colGrade.setCellValueFactory(entry -> {
+            Map.Entry<Course, Double> mapEntry = entry.getValue();
+            if (mapEntry.getValue() != null) {
+                return new SimpleDoubleProperty(mapEntry.getValue()).asObject();
+            } else {
+                return new SimpleDoubleProperty(0.0).asObject(); // Or handle null as needed
+            }
+        });
 
         // Set the columns to the TableView
-        tableViewEnrollments.getColumns().addAll(colCourseId, colCourseName, colGrade);
+        tableViewEnrollments.getColumns().addAll(List.of(colCourseId, colCourseName, colGrade));
 
         // Populate the TableView with the student's enrollments
         ObservableList<Map.Entry<Course, Double>> enrollmentData = FXCollections.observableArrayList(student.getEnrolledCourses().entrySet());
